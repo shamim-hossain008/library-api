@@ -74,7 +74,7 @@ Generic Error Response....
 System using Express, TypeScript, and MongoDB (via Mongoose)
 
 *Setup instraction 
-1. git clone 
+1. git clone https://github.com/shamim-hossain008/library-api
 cd library-api
 2.Environment Variables
 PORT = 5050
