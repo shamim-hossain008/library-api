@@ -1,22 +1,23 @@
 import cors from "cors";
 
-import express, { Application } from "express";
+import express, { Application, Request, Response } from "express";
+import config from "./config";
 import { connectMongoose } from "./config/mongoose";
 import { booksRouters } from "./controllers/book.controller";
 import { borrowRouters } from "./controllers/borrow.controller";
 import { errorHandler } from "./middlewares/errorHandler";
-import config from "./config";
-
-
 
 const app: Application = express();
-
 
 app.use(cors());
 app.use(express.json());
 
 app.use("/api/books", booksRouters);
 app.use("/api/borrow", borrowRouters);
+
+app.get("/", async (req: Request, res: Response) => {
+  res.send("Welcome to library api!!!");
+});
 
 app.use(errorHandler);
 

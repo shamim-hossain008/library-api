@@ -12,18 +12,22 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+const cors_1 = __importDefault(require("cors"));
 const express_1 = __importDefault(require("express"));
 const mongoose_1 = require("./config/mongoose");
 const book_controller_1 = require("./controllers/book.controller");
 const borrow_controller_1 = require("./controllers/borrow.controller");
 const errorHandler_1 = require("./middlewares/errorHandler");
+const config_1 = __importDefault(require("./config"));
 const app = (0, express_1.default)();
+app.use((0, cors_1.default)());
 app.use(express_1.default.json());
 app.use("/api/books", book_controller_1.booksRouters);
 app.use("/api/borrow", borrow_controller_1.borrowRouters);
 app.use(errorHandler_1.errorHandler);
 (() => __awaiter(void 0, void 0, void 0, function* () {
     yield (0, mongoose_1.connectMongoose)();
-    const PORT = 5050;
-    app.listen(PORT, () => console.log("🚀 Server on http://localhost:5050"));
+    app.listen(config_1.default.port, () => {
+        console.log(`🚀 Server is listening on port ${config_1.default.port}`);
+    });
 }))();
