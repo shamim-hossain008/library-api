@@ -1,10 +1,17 @@
-import express from "express";
+import cors from "cors";
+import dotenv from "dotenv";
+import express, { Application } from "express";
 import { connectMongoose } from "./config/mongoose";
 import { booksRouters } from "./controllers/book.controller";
 import { borrowRouters } from "./controllers/borrow.controller";
 import { errorHandler } from "./middlewares/errorHandler";
 
-const app = express();
+dotenv.config();
+
+const app: Application = express();
+const port = process.env.PORT || 5050;
+
+app.use(cors());
 app.use(express.json());
 
 app.use("/api/books", booksRouters);
@@ -14,6 +21,8 @@ app.use(errorHandler);
 
 (async () => {
   await connectMongoose();
-  const PORT = 5050;
-  app.listen(PORT, () => console.log("🚀 Server on http://localhost:5050"));
+
+  app.listen(port, () => {
+    console.log(`🚀 Server is listening on port ${port}`);
+  });
 })();
