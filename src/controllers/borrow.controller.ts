@@ -20,7 +20,7 @@ borrowRouters.post(
 
 // aggregation  summary
 borrowRouters.get(
-  "/",
+  "/summary",
   async (req: Request, res: Response, next: NextFunction) => {
     try {
       const summary = await Borrow.aggregate([
